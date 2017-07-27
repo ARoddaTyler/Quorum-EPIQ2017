@@ -11,8 +11,8 @@ use Libraries.Game.Collision.Shapes.Circle
 */
 class Main is Game
 
-    Drawable boxA
-    Drawable box2A
+    Drawable box
+    Drawable box2
     Drawable cliff
     Drawable floor
     Drawable top
@@ -41,36 +41,19 @@ class Main is Game
         or a Libraries.Interface.TextBox for gathering user input in a game.
     */
     action CreateGame
-        
-//First object. box2A is the texture, box2 is behind it to make it a circle
-        box2A:Load("Lightning.png")
-        box2A:EnablePhysics(true)
-        circle:SetRadius(30)
-        box2A:SetShape(circle)
-        box2A:SetFriction(0.1)
-        box2A:SetPosition(((GetScreenWidth() - 60) / 2) - 77, 450)
-        SetGravity2D(0, -100)
-        box2A:SetResponsive()
-        box2A:SetRestitution(0.5)
-        box2A:SetMass(mass1)
-        box2A:SetFriction(0.1)
-        Add(box2A)
-        plop:Load("smallPlop.wav")
 
-
-//Second object. boxA is the texture, box is behind it to make it a circle
-        boxA:Load("Cork.png")
-        boxA:EnablePhysics(true)
-        boxA:SetShape(circle)
-        boxA:SetPosition(((GetScreenWidth() - 60) / 2) + 77, 450)
+//Students are given this code in two examples
         EnablePhysics2D(true)
         SetGravity2D(0, -100)
-        boxA:SetResponsive()
-        boxA:SetRestitution(0.5)
-        boxA:SetMass(mass2)
-        boxA:SetFriction(0.01)
-        Add(boxA)
-        
+
+//This code loads the ceiling of the room. It is given to the student in an example
+       top:LoadFilledRectangle(GetScreenWidth(), 700)
+       top:SetPosition(0, GetScreenHeight()- 6)
+       top:EnablePhysics(true)
+       top:SetUnmovable()
+       Add(top)
+
+//This code loads the floor of the room. The student creates the code, using the ceiling code as an example.
        floor:LoadFilledRectangle(GetScreenWidth(), 700)
        floor:SetPosition(0, -696)
        floor:EnablePhysics(true)
@@ -78,18 +61,45 @@ class Main is Game
        floor:SetUnmovable()
        Add(floor)
 
-       top:LoadFilledRectangle(GetScreenWidth(), 700)
-       top:SetPosition(0, GetScreenHeight()- 6)
-       top:EnablePhysics(true)
-       top:SetUnmovable()
-       Add(top)
-
-
+//This code loads the cliff that dropped objects will interact with. The first part is given to the student.
        cliff:Load("BrickWall.png")
        cliff:SetPosition((GetScreenWidth() - 150) / 2, 0)
+//The student is asked to add this part in an activity.
        cliff:EnablePhysics(true)
        cliff:SetFriction(0.1)
        Add(cliff)
+        
+//This is the first object. This code is mostly given to the student in an example.
+        box:Load("Lightning.png")
+        box:EnablePhysics(true)
+        circle:SetRadius(30)
+        box:SetShape(circle)
+        box:SetFriction(0.1)
+        box:SetPosition(((GetScreenWidth() - 60) / 2) - 77, 450)
+        box:SetResponsive()
+        box:SetRestitution(0.5)
+        box:SetMass(mass1)
+        box:SetFriction(0.1)
+        Add(box)
+
+        plop:Load("smallPlop.wav")
+
+
+//This is the second object. Students provide all this code, using the first object as an example.
+        box2:Load("Cork.png")
+        box2:EnablePhysics(true)
+        box2:SetShape(circle)
+        box2:SetPosition(((GetScreenWidth() - 60) / 2) + 77, 450)
+        box2:SetResponsive()
+        box2:SetRestitution(0.5)
+        box2:SetMass(mass2)
+        box2:SetFriction(0.01)
+        Add(box2)
+        
+
+
+
+
 
     end
 
