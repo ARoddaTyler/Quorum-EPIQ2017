@@ -1,0 +1,105 @@
+use Libraries.Game.Game
+use Libraries.Sound.Audio
+use Libraries.Game.Graphics.Drawable
+use Libraries.Game.Collision.Shapes.Circle
+/*
+    This is a default class for creating a game in Quorum. Note that the Main 
+    action begins by calling StartGame(), which loads a window a game can 
+    be displayed in. The action CreateGame is where the game should load any 
+    assets, like images to be displayed, frames of animation, or sounds to be
+    played. 
+*/
+class Main is Game
+
+    Drawable boxA
+    Drawable box2A
+    Drawable cliff
+    Drawable floor
+    Drawable top
+    Audio plop
+    Audio splat
+    Circle circle
+//Variables for mass are declared outside the actions, so they can be used in all needed actions.
+    number mass1 = 0
+    number mass2 = 0
+    /*
+        This action, Main, starts our computer program. In Quorum, programs always
+        begin from Main.
+    */
+    action Main
+
+//Input statements are before the StartGame actions, so the mass of each object can be chosen.
+        mass1 = cast(number, input("What is the mass of the first object?"))
+        mass2 = cast(number, input("What is the mass of the second object?"))
+        StartGame()
+    end
+
+    /*
+        This action sets up the default values for a game. For example, we might
+        use the Libraries.Game.Graphics.Drawable class to load up an image or 
+        a shape. Or, we might add a Libraries.Interface.Button for making something clickable
+        or a Libraries.Interface.TextBox for gathering user input in a game.
+    */
+    action CreateGame
+        
+//First object. box2A is the texture, box2 is behind it to make it a circle
+        box2A:Load("Lightning.png")
+        box2A:EnablePhysics(true)
+        circle:SetRadius(30)
+        box2A:SetShape(circle)
+        box2A:SetFriction(0.1)
+        box2A:SetPosition(((GetScreenWidth() - 60) / 2) - 77, 450)
+        SetGravity2D(0, -100)
+        box2A:SetResponsive()
+        box2A:SetRestitution(0.5)
+        box2A:SetMass(mass1)
+        box2A:SetFriction(0.1)
+        Add(box2A)
+        plop:Load("smallPlop.wav")
+
+
+//Second object. boxA is the texture, box is behind it to make it a circle
+        boxA:Load("Cork.png")
+        boxA:EnablePhysics(true)
+        boxA:SetShape(circle)
+        boxA:SetPosition(((GetScreenWidth() - 60) / 2) + 77, 450)
+        EnablePhysics2D(true)
+        SetGravity2D(0, -100)
+        boxA:SetResponsive()
+        boxA:SetRestitution(0.5)
+        boxA:SetMass(mass2)
+        boxA:SetFriction(0.01)
+        Add(boxA)
+        
+       floor:LoadFilledRectangle(GetScreenWidth(), 700)
+       floor:SetPosition(0, -696)
+       floor:EnablePhysics(true)
+       floor:SetFriction(0.1)
+       floor:SetUnmovable()
+       Add(floor)
+
+       top:LoadFilledRectangle(GetScreenWidth(), 700)
+       top:SetPosition(0, GetScreenHeight()- 6)
+       top:EnablePhysics(true)
+       top:SetUnmovable()
+       Add(top)
+
+
+       cliff:Load("BrickWall.png")
+       cliff:SetPosition((GetScreenWidth() - 150) / 2, 0)
+       cliff:EnablePhysics(true)
+       cliff:SetFriction(0.1)
+       Add(cliff)
+
+    end
+
+    /*
+        The update action is called on every "frame" of animation in a game. This
+        action should be used to do operations on items. So, for example, we 
+        might use this action to change frames of animation, to rotate items, 
+        or to make creatures jump.
+    */
+    action Update(number seconds)
+
+    end
+end
