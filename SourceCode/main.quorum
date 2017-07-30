@@ -114,7 +114,8 @@ class Main is Game, CollisionListener2D
     action Update(number seconds)
         
     end
-    
+
+//This action is written for the students to add accessibility and usability for the simulation report    
     action BeginCollision(CollisionEvent2D event)
         Drawable itemA = cast(Drawable, event:GetItemA())
         Drawable itemB = cast(Drawable, event:GetItemB())
