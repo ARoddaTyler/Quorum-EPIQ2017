@@ -2,7 +2,9 @@ use Libraries.Game.Game
 use Libraries.Sound.Audio
 use Libraries.Game.Graphics.Drawable
 use Libraries.Game.Collision.Shapes.Circle
-use Libraries.Interface.Events.CollisionListener3D
+use Libraries.Interface.Events.CollisionEvent
+use Libraries.Interface.Events.CollisionListener2D
+use Libraries.Interface.Events.CollisionEvent2D
 /*
     This is a default class for creating a game in Quorum. Note that the Main 
     action begins by calling StartGame(), which loads a window a game can 
@@ -10,7 +12,7 @@ use Libraries.Interface.Events.CollisionListener3D
     assets, like images to be displayed, frames of animation, or sounds to be
     played. 
 */
-class Main is Game, CollisionListener3D
+class Main is Game, CollisionListener2D
 
     Drawable box
     Drawable box2
@@ -23,6 +25,8 @@ class Main is Game, CollisionListener3D
 //Variables for mass are declared outside the actions, so they can be used in all needed actions.
     number mass1 = 0
     number mass2 = 0
+        integer item1 = 0
+        integer item2 = 0
     /*
         This action, Main, starts our computer program. In Quorum, programs always
         begin from Main.
@@ -49,7 +53,7 @@ class Main is Game, CollisionListener3D
 
 //Students are given this code in two examples
         EnablePhysics2D(true)
-        SetGravity2D(0, -10)
+        SetGravity2D(0, -80)
 
 //This code loads the ceiling of the room. It is given to the student in an example
        top:LoadFilledRectangle(GetScreenWidth(), 700)
@@ -97,12 +101,8 @@ class Main is Game, CollisionListener3D
         box2:SetMass(mass2)
         box2:SetFriction(0.01)
         Add(box2)
-        
 
-
-
-
-
+        AddCollisionListener(me)
     end
 
     /*
@@ -115,6 +115,33 @@ class Main is Game, CollisionListener3D
         
     end
     
-    action BeginCollision()
+    action BeginCollision(CollisionEvent2D event)
+        Drawable itemA = cast(Drawable, event:GetItemA())
+        Drawable itemB = cast(Drawable, event:GetItemB())
+
+        if (itemA = box and itemB = floor) or (itemA = floor and itemB = box)
+            item1 = item1 + 1
+            splat:Play()
+            output "Object 1 posisiton is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item1
+        end
+
+        if (itemA = box and itemB = cliff) or (itemA = cliff and itemB = box)
+            item1 = item1 + 1
+            splat:Play()
+            output "Object 1 posisiton is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item1
+        end
+
+        if (itemA = box2 and itemB = floor) or (itemA = floor and itemB = box2)
+            item2 = item2 + 1
+            plop:Play()
+            output "Object 2 posisiton is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item2
+        end
+
+        if (itemA = box2 and itemB = cliff) or (itemA = cliff and itemB = box2)
+            item2 = item2 + 1
+            plop:Play()
+            output "Object 2 posisiton is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item2        
+        end
+
     end
 end
