@@ -2,6 +2,7 @@ use Libraries.Game.Game
 use Libraries.Sound.Audio
 use Libraries.Game.Graphics.Drawable
 use Libraries.Game.Collision.Shapes.Circle
+use Libraries.Interface.Events.CollisionListener3D
 /*
     This is a default class for creating a game in Quorum. Note that the Main 
     action begins by calling StartGame(), which loads a window a game can 
@@ -9,7 +10,7 @@ use Libraries.Game.Collision.Shapes.Circle
     assets, like images to be displayed, frames of animation, or sounds to be
     played. 
 */
-class Main is Game
+class Main is Game, CollisionListener3D
 
     Drawable box
     Drawable box2
@@ -42,9 +43,13 @@ class Main is Game
     */
     action CreateGame
 
+//These sounds are loaded by the student, but used in code that is given in the template.
+        plop:Load("smallPlop.wav")
+        splat:Load("splat.wav")
+
 //Students are given this code in two examples
         EnablePhysics2D(true)
-        SetGravity2D(0, -100)
+        SetGravity2D(0, -10)
 
 //This code loads the ceiling of the room. It is given to the student in an example
        top:LoadFilledRectangle(GetScreenWidth(), 700)
@@ -82,9 +87,6 @@ class Main is Game
         box:SetFriction(0.1)
         Add(box)
 
-        plop:Load("smallPlop.wav")
-
-
 //This is the second object. Students provide all this code, using the first object as an example.
         box2:Load("Cork.png")
         box2:EnablePhysics(true)
@@ -110,6 +112,9 @@ class Main is Game
         or to make creatures jump.
     */
     action Update(number seconds)
-
+        
+    end
+    
+    action BeginCollision()
     end
 end
