@@ -22,6 +22,7 @@ class Main is Game, CollisionListener2D
     Audio plop
     Audio splat
     Circle circle
+
 //Variables for mass are declared outside the actions, so they can be used in all needed actions.
     number mass1 = 0
     number mass2 = 0
@@ -36,6 +37,8 @@ class Main is Game, CollisionListener2D
 //Input statements are before the StartGame actions, so the mass of each object can be chosen.
         mass1 = cast(number, input("What is the mass of the first object?"))
         mass2 = cast(number, input("What is the mass of the second object?"))
+
+//The StartGame() action is part of the Quorum Game library, and makes the program read CreateGame and Update
         StartGame()
     end
 
@@ -123,25 +126,25 @@ class Main is Game, CollisionListener2D
         if (itemA = box and itemB = floor) or (itemA = floor and itemB = box)
             item1 = item1 + 1
             splat:Play()
-            output "Object 1 posisiton is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item1
+            output "Object 1 position is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item1
         end
 
         if (itemA = box and itemB = cliff) or (itemA = cliff and itemB = box)
             item1 = item1 + 1
             splat:Play()
-            output "Object 1 posisiton is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item1
+            output "Object 1 position is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item1
         end
 
         if (itemA = box2 and itemB = floor) or (itemA = floor and itemB = box2)
             item2 = item2 + 1
             plop:Play()
-            output "Object 2 posisiton is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item2
+            output "Object 2 position is: " + box2:GetX() + ", " + box2:GetY() + ". Hit = " + item2
         end
 
         if (itemA = box2 and itemB = cliff) or (itemA = cliff and itemB = box2)
             item2 = item2 + 1
             plop:Play()
-            output "Object 2 posisiton is: " + box:GetX() + ", " + box:GetY() + ". Hit = " + item2        
+            output "Object 2 position is: " + box2:GetX() + ", " + box2:GetY() + ". Hit = " + item2        
         end
 
     end
